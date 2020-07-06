@@ -56,10 +56,10 @@ const CalculateRFromCompositeLoad = ({ fx1C, x1C, fx2C, x2C }) => {
 };
 
 CalculateRFromCompositeLoad.propTypes = {
-  fx1C: PropTypes.string.isRequired,
-  fx2C: PropTypes.string.isRequired,
-  x1C: PropTypes.string.isRequired,
-  x2C: PropTypes.string.isRequired,
+  fx1C: PropTypes.number.isRequired,
+  fx2C: PropTypes.number.isRequired,
+  x1C: PropTypes.number.isRequired,
+  x2C: PropTypes.number.isRequired,
 };
 
 export default CalculateRFromCompositeLoad;

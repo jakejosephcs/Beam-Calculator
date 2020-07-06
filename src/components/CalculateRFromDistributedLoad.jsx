@@ -13,9 +13,9 @@ const CalculateRFromDistributedLoad = ({ fx1D, x1D, x2D }) => {
 };
 
 CalculateRFromDistributedLoad.propTypes = {
-  fx1D: PropTypes.string.isRequired,
-  x1D: PropTypes.string.isRequired,
-  x2D: PropTypes.string.isRequired,
+  fx1D: PropTypes.number.isRequired,
+  x1D: PropTypes.number.isRequired,
+  x2D: PropTypes.number.isRequired,
 };
 
 export default CalculateRFromDistributedLoad;

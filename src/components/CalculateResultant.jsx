@@ -19,10 +19,10 @@ const CalculateResultant = ({ fx1, x1, fx2, x2 }) => (
 );
 
 CalculateResultant.propTypes = {
-  fx1: PropTypes.string.isRequired,
-  fx2: PropTypes.string.isRequired,
-  x1: PropTypes.string.isRequired,
-  x2: PropTypes.string.isRequired,
+  fx1: PropTypes.number.isRequired,
+  fx2: PropTypes.number.isRequired,
+  x1: PropTypes.number.isRequired,
+  x2: PropTypes.number.isRequired,
 };
 
 export default CalculateResultant;

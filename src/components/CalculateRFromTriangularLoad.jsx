@@ -24,10 +24,10 @@ const CalculateRFromTriangularLoad = ({ fx1T, x1T, fx2T, x2T }) => {
 };
 
 CalculateRFromTriangularLoad.propTypes = {
-  fx1T: PropTypes.string.isRequired,
-  fx2T: PropTypes.string.isRequired,
-  x1T: PropTypes.string.isRequired,
-  x2T: PropTypes.string.isRequired,
+  fx1T: PropTypes.number.isRequired,
+  fx2T: PropTypes.number.isRequired,
+  x1T: PropTypes.number.isRequired,
+  x2T: PropTypes.number.isRequired,
 };
 
 export default CalculateRFromTriangularLoad;
