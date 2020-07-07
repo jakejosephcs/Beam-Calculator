@@ -9,10 +9,6 @@ export default function App() {
   const beamLength = 13;
   const typeOfSupport = [
     {
-      type: 'pin',
-      location: 6.3,
-    },
-    {
       type: 'roller',
       location: 2,
     },
@@ -29,6 +25,13 @@ export default function App() {
       location: 10,
     },
   ];
+  const pointLoad = [
+    {
+      direction: 'up',
+      location: 7,
+      magnitde: 20,
+    },
+  ];
 
   return (
     <>
@@ -42,6 +45,7 @@ export default function App() {
         lengthUnit={lengthUnit}
         forceUnit={forceUnit}
         typeOfSupport={typeOfSupport}
+        pointLoad={pointLoad}
       />
     </>
   );

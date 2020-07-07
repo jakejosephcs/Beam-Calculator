@@ -1,67 +1,122 @@
 import React, { useRef, useEffect } from 'react';
 import { func } from 'prop-types';
 
-const FreeBodyDiagram = ({ length, lengthUnit, forceUnit, typeOfSupport }) => {
+const FreeBodyDiagram = ({
+  length,
+  lengthUnit,
+  forceUnit,
+  typeOfSupport,
+  pointLoad,
+}) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = 841;
-    canvas.height = 140;
     const ctx = canvas.getContext('2d');
 
-    const beamStartX = (canvas.width / 34) * 2;
-    const beamStartY = (canvas.height / 12) * 5;
-    const beamLength = (canvas.width / 34) * 30;
-    const beamWidth = canvas.height / 12;
+    canvas.width = 841;
+    canvas.height = 140;
+
+    const TOTAL_SQUARES_X = 34;
+    const TOTAL_SQUARES_Y = 12;
+
+    const SQUARES_TO_BEAM_START_X = 2;
+    const SQUARES_TO_BEAM_START_Y = 5;
+    const SQUARES_TAKEN_BY_BEAM_X = 30;
+    const SQUARES_TAKEN_BY_BEAM_Y = 1;
+
+    const SQUARES_TO_AXIS_START_Y = 10;
+    const SQUARES_TAKEN_BY_AXIS_Y = 1;
+
+    const beamStartX =
+      (canvas.width / TOTAL_SQUARES_X) * SQUARES_TO_BEAM_START_X;
+    const beamStartY =
+      (canvas.height / TOTAL_SQUARES_Y) * SQUARES_TO_BEAM_START_Y;
+    const beamLength =
+      (canvas.width / TOTAL_SQUARES_X) * SQUARES_TAKEN_BY_BEAM_X;
+    const beamWidth =
+      (canvas.height / TOTAL_SQUARES_Y) * SQUARES_TAKEN_BY_BEAM_Y;
 
     const axisStartX = beamStartX;
-    const axisStarty = (canvas.height / 12) * 10;
+    const axisStarty =
+      (canvas.height / TOTAL_SQUARES_Y) * SQUARES_TO_AXIS_START_Y;
     const axisLength = beamLength;
-    const axisWidth = 1;
+    const axisWidth = SQUARES_TAKEN_BY_AXIS_Y;
 
-    const drawPinSupport = (x, y) => {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(beamStartX, beamStartY, beamLength, beamWidth);
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(axisStartX, axisStarty, axisLength, axisWidth);
+
+    const drawNumberAndUnitOnScale = (
+      valueToShow,
+      locationX,
+      locationY,
+      pixels = 18,
+      unit = null
+    ) => {
+      ctx.font = `${pixels}px serif`;
+      ctx.fillText(
+        unit ? `${valueToShow}${unit}` : `${valueToShow}`,
+        locationX,
+        locationY
+      );
+    };
+
+    drawNumberAndUnitOnScale(
+      length,
+      axisStartX + axisLength - 15,
+      axisStarty + 15,
+      18,
+      lengthUnit
+    );
+
+    drawNumberAndUnitOnScale(0, axisStartX, axisStarty + 15);
+
+    const SUPPORT_HEIGHT = 20;
+
+    const drawPinSupport = (x) => {
       ctx.fillStyle = '#C4C4C4';
       ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(x - 10, y + 20);
-      ctx.lineTo(x + 10, y + 20);
+      ctx.moveTo(x, beamStartY + beamWidth);
+      ctx.lineTo(x - 10, beamStartY + beamWidth + SUPPORT_HEIGHT);
+      ctx.lineTo(x + 10, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.fill();
       ctx.fillStyle = 'black';
       ctx.beginPath();
-      ctx.moveTo(x - 20, 90);
-      ctx.lineTo(x + 20, 90);
+      ctx.moveTo(x - 20, beamStartY + beamWidth + SUPPORT_HEIGHT);
+      ctx.lineTo(x + 20, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.stroke();
-      ctx.moveTo(x - 15, 90);
+      ctx.moveTo(x - 15, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.lineTo(x - 17.5, 95);
       ctx.stroke();
-      ctx.moveTo(x - 10, 90);
+      ctx.moveTo(x - 10, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.lineTo(x - 12.5, 95);
       ctx.stroke();
-      ctx.moveTo(x - 5, 90);
+      ctx.moveTo(x - 5, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.lineTo(x - 7.5, 95);
       ctx.stroke();
-      ctx.moveTo(x, 90);
+      ctx.moveTo(x, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.lineTo(x - 2.5, 95);
       ctx.stroke();
-      ctx.moveTo(x + 5, 90);
+      ctx.moveTo(x + 5, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.lineTo(x + 2.5, 95);
       ctx.stroke();
-      ctx.moveTo(x + 10, 90);
+      ctx.moveTo(x + 10, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.lineTo(x + 7.5, 95);
       ctx.stroke();
-      ctx.moveTo(x + 15, 90);
+      ctx.moveTo(x + 15, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.lineTo(x + 12.5, 95);
       ctx.stroke();
     };
 
-    const drawRollerSupport = (x, y) => {
+    const drawRollerSupport = (x) => {
       ctx.fillStyle = '#C4C4C4';
       ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(x - 10, y + 20);
-      ctx.lineTo(x + 10, y + 20);
+      ctx.moveTo(x, beamStartY + beamWidth);
+      ctx.lineTo(x - 10, beamStartY + beamWidth + SUPPORT_HEIGHT);
+      ctx.lineTo(x + 10, beamStartY + beamWidth + SUPPORT_HEIGHT);
       ctx.fill();
       ctx.fillStyle = 'black';
       ctx.beginPath();
@@ -100,7 +155,7 @@ const FreeBodyDiagram = ({ length, lengthUnit, forceUnit, typeOfSupport }) => {
       ctx.fill();
     };
 
-    const drawFixedSupport = (side, y) => {
+    const drawFixedSupport = (side) => {
       ctx.fillStyle = '#C4C4C4';
       ctx.beginPath();
       if (side === 'left') {
@@ -204,36 +259,25 @@ const FreeBodyDiagram = ({ length, lengthUnit, forceUnit, typeOfSupport }) => {
 
     for (let i = 0; i < typeOfSupport.length; i++) {
       const locationOfSupport =
-        ((typeOfSupport[i].location * 30) / length) * (canvas.width / 34);
-      const locationOfSupportRounded = Math.round(locationOfSupport * 10) / 10;
-      console.log(locationOfSupport);
+        (axisLength / length) * typeOfSupport[i].location + axisStartX;
       if (typeOfSupport[i].type === 'pin') {
-        drawPinSupport(locationOfSupport, 70);
+        drawPinSupport(locationOfSupport);
       } else if (typeOfSupport[i].type === 'roller') {
-        drawRollerSupport(locationOfSupport, 70);
+        drawRollerSupport(locationOfSupport);
       } else if (typeOfSupport[i].type === 'fixed') {
-        drawFixedSupport(typeOfSupport[i].location, 70);
+        drawFixedSupport(typeOfSupport[i].location);
       }
-      ctx.font = '14px serif';
-      ctx.fillText(
-        `${typeOfSupport[i].location}`,
+      drawNumberAndUnitOnScale(
+        typeOfSupport[i].location,
         locationOfSupport - 8,
-        axisStarty + 15
+        axisStarty + 15,
+        14
       );
     }
 
-    ctx.fillStyle = 'black';
-    ctx.fillRect(beamStartX, beamStartY, beamLength, beamWidth);
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(axisStartX, axisStarty, axisLength, axisWidth);
+    const drawPointLoad = (direction, location, magnitde) => {};
 
-    ctx.font = '18px serif';
-    ctx.fillText(
-      `${length}${lengthUnit}`,
-      axisStartX + axisLength - 15,
-      axisStarty + 15
-    );
-    ctx.fillText(0, axisStartX, axisStarty + 15);
+    for (let i = 0; i < pointLoad.length; i++) {}
 
     ctxRef.current = ctx;
   });
