@@ -275,9 +275,39 @@ const FreeBodyDiagram = ({
       );
     }
 
-    const drawPointLoad = (direction, location, magnitde) => {};
+    const drawPointLoad = (direction, location, magnitude) => {
+      ctx.fillStyle = 'red';
+      if (direction === 'up') {
+        ctx.beginPath();
+        ctx.moveTo(location, beamStartY + beamWidth);
+        ctx.lineTo(location - 5, beamStartY + beamWidth + 15);
+        ctx.lineTo(location + 5, beamStartY + beamWidth + 15);
+        ctx.fill();
+        ctx.moveTo(location, beamStartY + beamWidth);
+        ctx.lineTo(location, beamStartY + beamWidth + magnitude);
+        ctx.stroke();
+      }
+      if (direction === 'down') {
+        ctx.beginPath();
+        ctx.moveTo(location, beamStartY);
+        ctx.lineTo(location - 5, beamStartY - 15);
+        ctx.lineTo(location + 5, beamStartY - 15);
+        ctx.moveTo(location, beamStartY);
+        ctx.lineTo(location, beamStartY - magnitude);
+        ctx.stroke();
+        ctx.fill();
+      }
+    };
 
-    for (let i = 0; i < pointLoad.length; i++) {}
+    for (let i = 0; i < pointLoad.length; i++) {
+      const locationOfPointLoad =
+        (axisLength / length) * pointLoad[i].location + axisStartX;
+      drawPointLoad(
+        pointLoad[i].direction,
+        locationOfPointLoad,
+        pointLoad[i].magnitde
+      );
+    }
 
     ctxRef.current = ctx;
   });

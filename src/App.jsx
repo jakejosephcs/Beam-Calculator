@@ -29,7 +29,12 @@ export default function App() {
     {
       direction: 'up',
       location: 7,
-      magnitde: 20,
+      magnitde: 30,
+    },
+    {
+      direction: 'down',
+      location: 5,
+      magnitde: 40,
     },
   ];
 
