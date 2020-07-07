@@ -29,12 +29,24 @@ export default function App() {
     {
       direction: 'up',
       location: 7,
-      magnitde: 30,
+      magnitude: 30,
     },
     {
       direction: 'down',
       location: 5,
-      magnitde: 40,
+      magnitude: 40,
+    },
+  ];
+  const moment = [
+    {
+      direction: 'clockwise',
+      location: 4,
+      magnitude: 20,
+    },
+    {
+      direction: 'counterclockwise',
+      location: 12,
+      magnitude: 20,
     },
   ];
 
@@ -51,6 +63,7 @@ export default function App() {
         forceUnit={forceUnit}
         typeOfSupport={typeOfSupport}
         pointLoad={pointLoad}
+        moment={moment}
       />
     </>
   );

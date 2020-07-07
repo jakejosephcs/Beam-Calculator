@@ -7,6 +7,7 @@ const FreeBodyDiagram = ({
   forceUnit,
   typeOfSupport,
   pointLoad,
+  moment,
 }) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -305,8 +306,54 @@ const FreeBodyDiagram = ({
       drawPointLoad(
         pointLoad[i].direction,
         locationOfPointLoad,
-        pointLoad[i].magnitde
+        pointLoad[i].magnitude
       );
+    }
+
+    const drawMoment = (direction, location, magnitude) => {
+      if (direction === 'clockwise') {
+        ctx.strokeStyle = 'red';
+        ctx.beginPath();
+        ctx.arc(
+          location,
+          beamStartY + beamWidth / 2,
+          1.5 * beamWidth,
+          0.5 * Math.PI,
+          0,
+          false
+        );
+        ctx.stroke();
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(location + 1.5 * beamWidth, beamStartY + beamWidth / 2 + 10);
+        ctx.lineTo(location + 1.5 * beamWidth - 5, beamStartY + beamWidth / 2);
+        ctx.lineTo(location + 1.5 * beamWidth + 5, beamStartY + beamWidth / 2);
+        ctx.fill();
+      } else if (direction === 'counterclockwise') {
+        ctx.strokeStyle = 'red';
+        ctx.beginPath();
+        ctx.arc(
+          location,
+          beamStartY + beamWidth / 2,
+          1.5 * beamWidth,
+          0.5 * Math.PI,
+          1 * Math.PI,
+          true
+        );
+        ctx.stroke();
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(location - 1.5 * beamWidth, beamStartY + beamWidth / 2 + 10);
+        ctx.lineTo(location - 1.5 * beamWidth - 5, beamStartY + beamWidth / 2);
+        ctx.lineTo(location - 1.5 * beamWidth + 5, beamStartY + beamWidth / 2);
+        ctx.fill();
+      }
+    };
+
+    for (let i = 0; i < moment.length; i++) {
+      const locationOfMoment =
+        (axisLength / length) * moment[i].location + axisStartX;
+      drawMoment(moment[i].direction, locationOfMoment, moment[i].magnitude);
     }
 
     ctxRef.current = ctx;
