@@ -13,3 +13,7 @@
 - [ ] Allow user to specify Distributed Load
   - [x] Convert from a Distributed Load to a Point Load
 - [ ] Allow user to specific Hinge and Hinge Location
+
+## Current Notes:
+
+![Shear Force and Bending Moment](https://user-images.githubusercontent.com/58377971/86815583-ce57d200-c050-11ea-96a1-22051114f82d.png)
