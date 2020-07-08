@@ -1,7 +1,6 @@
 import React from 'react';
-import CalculateResultant from './components/CalculateResultant';
-import FreeBodyDiagram from './components/FreeBodyDiagram';
-import Input from './components/Input';
+import Inputs from './components/containers/inputContainer/Inputs';
+import Diagrams from './components/containers/diagramContainer/Diagrams';
 
 export default function App() {
   const lengthUnit = 'm';
@@ -50,21 +49,27 @@ export default function App() {
     },
   ];
 
+  const distributedLoad = [
+    {
+      startLocation: 8,
+      endLocation: 11,
+      startMagnitude: 10,
+      endMagnitude: 30,
+    },
+  ];
+
   return (
-    <>
-      <div className="App">
-        <h1>Beam</h1>
-        <Input />
-        <CalculateResultant fx1={10} x1={0} fx2={15} x2={9} />
-      </div>
-      <FreeBodyDiagram
+    <div id="App">
+      <Inputs />
+      <Diagrams
         length={beamLength}
         lengthUnit={lengthUnit}
         forceUnit={forceUnit}
         typeOfSupport={typeOfSupport}
         pointLoad={pointLoad}
         moment={moment}
+        distributedLoad={distributedLoad}
       />
-    </>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { func } from 'prop-types';
 
 const FreeBodyDiagram = ({
   length,
@@ -8,6 +7,7 @@ const FreeBodyDiagram = ({
   typeOfSupport,
   pointLoad,
   moment,
+  distributedLoad,
 }) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -308,6 +308,12 @@ const FreeBodyDiagram = ({
         locationOfPointLoad,
         pointLoad[i].magnitude
       );
+      drawNumberAndUnitOnScale(
+        pointLoad[i].location,
+        locationOfPointLoad - 8,
+        axisStarty + 15,
+        14
+      );
     }
 
     const drawMoment = (direction, location, magnitude) => {
@@ -354,13 +360,57 @@ const FreeBodyDiagram = ({
       const locationOfMoment =
         (axisLength / length) * moment[i].location + axisStartX;
       drawMoment(moment[i].direction, locationOfMoment, moment[i].magnitude);
+      drawNumberAndUnitOnScale(
+        moment[i].location,
+        locationOfMoment - 8,
+        axisStarty + 15,
+        14
+      );
+    }
+
+    const drawDistributedLoad = (
+      startLocation,
+      endLocation,
+      startMagnitude,
+      endMagnitude
+    ) => {
+      ctx.moveTo(startLocation, beamStartY);
+      ctx.lineTo(startLocation, beamStartY - startMagnitude);
+      ctx.stroke();
+
+      ctx.moveTo(endLocation, beamStartY);
+      ctx.lineTo(endLocation, beamStartY - endMagnitude);
+      ctx.stroke();
+
+      ctx.moveTo(startLocation, beamStartY - startMagnitude);
+      ctx.lineTo(endLocation, beamStartY - endMagnitude);
+      ctx.stroke();
+
+      for (let i = 0; i < Math.abs(startLocation - endLocation); i += 10) {
+        ctx.moveTo(startLocation + i, beamStartY);
+        ctx.lineTo(startLocation + i, beamStartY - startMagnitude);
+        ctx.stroke();
+      }
+    };
+
+    for (let i = 0; i < distributedLoad.length; i++) {
+      const startLocationOfLoad =
+        (axisLength / length) * distributedLoad[i].startLocation + axisStartX;
+      const endLocationOfLoad =
+        (axisLength / length) * distributedLoad[i].endLocation + axisStartX;
+      drawDistributedLoad(
+        startLocationOfLoad,
+        endLocationOfLoad,
+        distributedLoad[i].startMagnitude,
+        distributedLoad[i].endMagnitude
+      );
     }
 
     ctxRef.current = ctx;
   });
 
   return (
-    <div>
+    <div id="FBD">
       <canvas ref={canvasRef} />
     </div>
   );

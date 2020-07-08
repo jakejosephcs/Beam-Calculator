@@ -1,11 +1,140 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #fffeb8;
 }
 
-.App {
-  background-color: azure;
+#App {
+  background-color: #fffeb8;
+  display: flex;
 }
 
+/* INPUT */
+#InputContainer {
+  width: 343px;
+  height: 100vh;
+  background-color: #e6c073;
+  margin-right: 5px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#InputContainer > h1 {
+  color: #85203b;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  margin-top: 15px;
+}
+
+#BeamLength,
+#TypeOfSupport,
+#PointLoad,
+#Moment,
+#DistributedLoad {
+  display: flex;
+  flex-direction: column;
+  width: 269px;
+  height: 110px;
+  background: #c86f5e;
+  border-radius: 20px;
+  padding: 10px 19px;
+}
+
+#BeamLength {
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#TypeOfSupport,
+#PointLoad,
+#Moment,
+#DistributedLoad {
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+
+#Solve {
+  width: 147px;
+  height: 41px;
+  background: #85203b;
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 18px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+/* DIAGRAM */
+#DiagramContainer {
+  width: 1047px;
+  height: 100vh;
+  background-color: #e6c073;
+  margin-left: 5px;
+  border-radius: 20px;
+}
+
+#FBD {
+  width: 991px;
+  height: 195px;
+  background: #c86f5e;
+  border-radius: 20px;
+  margin-top: 30px;
+  margin-left: 28px;
+  margin-right: 28px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+#SFD,
+#BMD {
+  width: 490px;
+  height: 380px;
+  background: #c86f5e;
+  border-radius: 20px;
+}
+
+#SFD {
+  margin-left: 28px;
+}
+
+#BMD {
+  margin-right: 28px;
+  margin-left: 11px;
+}
+
+#SFDBMD {
+  display: flex;
+}
+
+#PropertiesTable {
+  width: 991px;
+  height: 190px;
+  background: #c86f5e;
+  border-radius: 20px;
+  margin-top: 20px;
+  margin-left: 28px;
+  margin-right: 28px;
+  margin-bottom: 25px;
+}
+
+/* CANVAS */
 canvas {
   display: flex;
   justify-content: center;
