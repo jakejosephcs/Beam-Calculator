@@ -10,10 +10,9 @@ const TypeOfSupport = () => {
     setSupports(
       supports.concat({
         type: `${typeOfSupport}`,
-        location: locationOfSupport,
+        location: parseInt(locationOfSupport, 10),
       })
     );
-    console.log(supports);
   };
 
   const handleInputLocationChange = (e) => {
